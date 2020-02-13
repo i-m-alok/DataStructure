@@ -51,9 +51,11 @@ int *insert(int data, struct node* root)
 
 
 int main(){
-  int arr[6]={5,6,3,1,8,7};
+  int num_of_nodes,elements;
   struct node* ptr=NULL;
-  for(int i=0; i<6; i++){
-    ptr=insert(arr[i], ptr);
+  scanf("%d",&num_of_nodes);
+  for(int i=1; i<num_of_nodes; i++){
+    scanf("%d",&elements);
+    ptr=insert(elements, ptr);
   }
 }
