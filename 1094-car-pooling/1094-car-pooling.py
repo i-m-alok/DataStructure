@@ -4,12 +4,12 @@ class Solution:
         for i in trips:
             start = i[1]
             end = i[2]
-            currentCapacityMap[start]+=i[0]
-            currentCapacityMap[end]-=i[0]
-        currentCapacity = currentCapacityMap[0]
+            currentCapacityMap[start]-=i[0]
+            currentCapacityMap[end]+=i[0]
+        currentCapacity = capacity
         for value in currentCapacityMap:
             currentCapacity+=value
             print(value, currentCapacity)
-            if(currentCapacity>capacity):
+            if(currentCapacity<0):
                 return False
         return True
