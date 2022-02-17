@@ -19,6 +19,8 @@ class Solution:
                 self.swap(nums, start,end)
                 start-=1
                 end-=1
+            elif(nums[start]<1):
+                break
             else:
                 start-=1
         print(nums)
