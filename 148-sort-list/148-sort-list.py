@@ -5,62 +5,34 @@
 #         self.next = next
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # return self.findMid(head)
         return self.mergeSort(head)
         
     def mergeSort(self, head):
-        length=self.findLength(head)-1
-        if(length<=0):
+        if(not head or not head.next):
             return head
-        mid=0
-        midPtr=head
-        while(mid<(length)//2):
-            midPtr=midPtr.next
-            mid+=1
-        # print(length, midPtr, mid)
-        temp=None
-        if(midPtr):
-            temp=midPtr.next
-            midPtr.next=None
+        mid=self.findMid(head)
         left=self.mergeSort(head)
-        right=self.mergeSort(temp)
-        # print(self.mergeProcedure(left,right))
+        right=self.mergeSort(mid)
         return self.mergeProcedure(left,right)
     
     def mergeProcedure(self, left,right):
-        leftPtr=left
-        rightPtr=right
-        tempHead = None
-        tail=None
-        # print(leftPtr, rightPtr)
-        # print("______________")
-        while(leftPtr and rightPtr):
-            temp=None
-            # print(tail)
-            if(leftPtr.val<=rightPtr.val):
-                temp=leftPtr
-                leftPtr=leftPtr.next
+        tail=ListNode(None)
+        head = tail
+        while(left and right):
+            if(left.val<right.val):
+                tail.next, tail, left = left, left, left.next
             else:
-                temp=rightPtr
-                rightPtr=rightPtr.next
-            temp.next=None
-            if(tempHead==None and tail==None):
-                tempHead=temp
-                tail=temp
-            else:
-                tail.next=temp
-                tail=tail.next
-        if(leftPtr==None):
-            tail.next=rightPtr
-        elif(rightPtr==None):
-            tail.next=leftPtr
-        # print("______________",tail)
-        return tempHead
+                tail.next, tail, right = right, right, right.next
+        tail.next = left or right
+        return head.next
+    
+    def findMid(self, head):
+        slow, fast=head, head
+        while(fast.next and fast.next.next):
+            slow=slow.next
+            fast=fast.next.next
+        mid = slow.next
+        slow.next=None
+        return mid
         
-    def findLength(self, head):
-        # print(head)
-        ptr=head
-        count=0
-        while(ptr):
-            count+=1
-            ptr=ptr.next
-        return count
