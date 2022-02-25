@@ -3,29 +3,16 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        start = 0
-        end= 0
-        while(start<len(nums)):
-            if(nums[start]<1):
-                self.swap(nums, start,end)
-                start+=1
-                end+=1
+        i=0
+        for j in range(len(nums)):
+            if(nums[j]<1):
+                nums[i], nums[j] = nums[j], nums[i]
+                i+=1
+        j=len(nums)-1
+        while(i<j):
+            if(nums[i]>1):
+                nums[i], nums[j]=nums[j],nums[i]
+                j-=1
             else:
-                start+=1
-        start=len(nums)-1
-        end=len(nums)-1
-        while(start>=0):
-            if(nums[start]>1):
-                self.swap(nums, start,end)
-                start-=1
-                end-=1
-            elif(nums[start]<1):
-                break
-            else:
-                start-=1
-        print(nums)
-    
-    def swap(self, nums, i, j):
-        temp = nums[i]
-        nums[i]=nums[j]
-        nums[j]=temp
+                i+=1
+                
